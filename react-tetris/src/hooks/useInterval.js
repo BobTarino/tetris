@@ -1,3 +1,5 @@
+// starter file // custom hook by Dan Abrimov
+
 import { useEffect, useRef } from 'react';
 
 export function useInterval(callback, delay) {
