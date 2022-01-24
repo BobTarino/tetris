@@ -9,6 +9,5 @@ export const createStage = () =>
     Array.from(Array(STAGE_HEIGHT), () =>
         // '0' equals 'nothing' in the grid // clear property will be set to merge when tetrominos collide 
         new Array(STAGE_WIDTH).fill([0, 'clear'])
-    
     )
 
