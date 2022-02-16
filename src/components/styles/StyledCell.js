@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // use style components with backticks to modify CSS conditionally
 // border property uses ternary oeprator to insert border if tertomino is present 
