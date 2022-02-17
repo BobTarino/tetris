@@ -1,6 +1,9 @@
 // main component
 import React, { useState} from 'react';
 
+// clean stage when game is restarted  
+import { createStage } from '../gameHelpers';
+
 // styled components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
 
@@ -20,21 +23,46 @@ const Tetris = () => {
     const [gameOver, setGameOver] = useState(false);
     // grab new player from usePlayer hook
     const [player] = usePlayer();
+    // grab and destructure stage
     const [stage, setStage] = useStage(player);
 
-
-
     console.log('re-render');
+
+    const movePlayer = dir => {
+
+    }
+
+    const startGame = () => {
+
+    }
+
+    const drop = () => {
+
+    }
+    
+    const dropPlayer = () => {
+
+    }
+
+    const move = ({ keyCode }) => {
+
+    }
+
     return (
-        <StyledTetrisWrapper>
+        <StyledTetrisWrapper role = "button" tabIndex = "0" onKeyDown = {e => move(e)} >
             <StyledTetris>
-            <Stage stage = {createStage()} />
+            <Stage stage = {stage} />
             <aside>
+                {gameOver ? (
+                    // ternary operator determining if game is over
+                    <Display gameOver = {gameOver} text ="Game Over" />  
+                ) : (
                 <div>
                     <Display text = "Score" />
                     <Display text = "Rows" />
                     <Display text = "Level1" />
                 </div> 
+                )}
                 <StartButton />
             </aside>
             </StyledTetris>
