@@ -1,7 +1,8 @@
 // player logic 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { randomTetromino } from '../tetrominos';
+import { STAGE_WIDTH } from '../gameHelpers';
 
 
 
@@ -13,6 +14,23 @@ export const usePlayer = () => {
         collided: false,
     });
 
-    return [player];
+    const updatePlayerPos = ({ x, y, collided}) => {
+        setPlayer(prev => ({  // set player state
+            ...prev,  // spread previous state
+            pos: { x: (prev.pos.x += x), y: (prev.post.y += y)},  // set position to new value and add to state
+            collided,
+        }))
+    }
+
+    // useCallback hook will keep game loop from entering infinty loop
+    const resetPlayer = useCallback(() => {
+        setPlayer({
+            pos: { x: STAGE_WIDTH / 2 - 2, y: 0 },  // reset positon approx in top middle
+            tetromino: randomTetromino().shape,
+            collided: false, 
+        })
+    }, [])
+
+    return [player, updatePlayerPos, resetPlayer];
 
 }
