@@ -22,25 +22,29 @@ const Tetris = () => {
     // boolean whether game is over - starts false because game is starting
     const [gameOver, setGameOver] = useState(false);
     // grab new player from usePlayer hook
-    const [player] = usePlayer();
+    const [player, updatePlayerPos, resetPlayer] = usePlayer();
     // grab and destructure stage
     const [stage, setStage] = useStage(player);
 
     console.log('re-render');
 
     const movePlayer = dir => {
-
+        updatePlayerPos({ x: dir, y: 0 })
     }
 
     const startGame = () => {
-
+        // reset everything
+        setStage(createStage());
+        resetPlayer();
     }
 
     const drop = () => {
+        updatePlayerPos({ x: 0, y: 1, collided: false }) // increase y value by 1 making player tetromino go down
 
     }
     
     const dropPlayer = () => {
+        drop();
 
     }
 
@@ -71,7 +75,7 @@ const Tetris = () => {
                     <Display text = "Level1" />
                 </div> 
                 )}
-                <StartButton />
+                <StartButton onClick = {startGame} />
             </aside>
             </StyledTetris>
         </StyledTetrisWrapper>
