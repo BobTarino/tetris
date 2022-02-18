@@ -1,7 +1,7 @@
 // player logic 
 import { useState, useCallback } from 'react';
 
-import { randomTetromino } from '../tetrominos';
+import { TETROMINOS, randomTetromino } from '../tetrominos';
 import { STAGE_WIDTH } from '../gameHelpers';
 
 
@@ -10,14 +10,14 @@ export const usePlayer = () => {
     const [player, setPlayer] = useState({
     //    create initial state
         pos: { x: 0, y: 0 }, 
-        tetromino: randomTetromino().shape,
+        tetromino: TETROMINOS[0].shape,
         collided: false,
     });
 
     const updatePlayerPos = ({ x, y, collided}) => {
         setPlayer(prev => ({  // set player state
             ...prev,  // spread previous state
-            pos: { x: (prev.pos.x += x), y: (prev.post.y += y)},  // set position to new value and add to state
+            pos: { x: (prev.pos.x += x), y: (prev.pos.y += y)},  // set position to new value and add to state
             collided,
         }))
     }
