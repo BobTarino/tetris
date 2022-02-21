@@ -2,7 +2,7 @@
 import React, { useState} from 'react';
 
 // clean stage when game is restarted  
-import { createStage } from '../gameHelpers';
+import { createStage, checkCollision } from '../gameHelpers';
 
 // styled components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
@@ -29,7 +29,10 @@ const Tetris = () => {
     console.log('re-render');
 
     const movePlayer = dir => {
-        updatePlayerPos({ x: dir, y: 0 })
+        // check collision when moving player and when player drops
+        if(!checkCollision(player, stage, {x: dir, y: 0})) {
+        updatePlayerPos({ x: dir, y: 0 });
+        }
     }
 
     const startGame = () => {

@@ -27,13 +27,17 @@
                     }
                 });
             });
+            // then check if we collided
+            if (player.collided) {
+                resetPlayer();
+            }
 
             return newStage;
         }; 
 
         
         setStage(prev => updateStage(prev));
-    }, [player]); // dependencies for useEffect
+    }, [player, resetPlayer]); // dependencies for useEffect
 
      return [stage, setStage];
  }
