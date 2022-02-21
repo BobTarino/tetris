@@ -23,13 +23,12 @@ export const checkCollision = (player, stage, { x: moveX, y: moveY }) => {
                 if (
                 // 2. check that our move in inside the game area's height (y)
                 // we shouldn't go through the bottom of the play area
-                !stage[y + player.pos.y + moveY] ||
+                   !stage[y + player.pos.y + moveY] ||
                     // 3.check that our move in inside the game area's width (x) 
                     !stage[y + player.pos.y + moveY][x + player.pos.x + moveX] ||
                     // 4. check that cell we're moving to isn't set to clear
                     stage[y + player.pos.y + moveY][x + player.pos.x + moveX][1] !== 
                     'clear'
-
                 ) {
                     return true;
                 }
@@ -37,6 +36,8 @@ export const checkCollision = (player, stage, { x: moveX, y: moveY }) => {
                  
         }   
     }
+
+    return false;
         
 };
 

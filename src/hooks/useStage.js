@@ -6,11 +6,12 @@
     //  call useStage hook and generate initial stage aka the clean board
      const [stage, setStage] = useState(createStage());
     // call useEffect hook for side effect
+    
     useEffect(() => {
         const updateStage = prevStage => {
             // First clear the stage
             const newStage = prevStage.map(row => 
-                row.map(cell =>(cell[1] === 'clear' ? [0, 'clear'] : cell)),
+                row.map(cell => (cell[1] === 'clear' ? [0, 'clear'] : cell)),
             );
 
             // then draw the tetromino
@@ -23,7 +24,7 @@
                             value,
                             // if set to merge we will know it has collided and we should keep tertomino in stage
                             `${player.collided ? 'merged' : 'clear'}`,
-                        ]
+                        ];
                     }
                 });
             });
@@ -37,7 +38,7 @@
 
         
         setStage(prev => updateStage(prev));
-    }, [player, resetPlayer]); // dependencies for useEffect
+       }, [player, resetPlayer]); // dependencies for useEffect
 
      return [stage, setStage];
- }
+ };

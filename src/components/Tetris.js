@@ -1,8 +1,8 @@
 // main component
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 // clean stage when game is restarted  
-import { createStage, checkCollision } from '../gameHelpers';
+import { checkCollision, createStage } from '../gameHelpers';
 
 // styled components
 import { StyledTetrisWrapper, StyledTetris } from './styles/StyledTetris';
@@ -24,14 +24,14 @@ const Tetris = () => {
     // grab new player from usePlayer hook
     const [player, updatePlayerPos, resetPlayer] = usePlayer();
     // grab and destructure stage
-    const [stage, setStage] = useStage(player);
+    const [stage, setStage] = useStage(player, resetPlayer);
 
     console.log('re-render');
 
     const movePlayer = dir => {
         // check collision when moving player and when player drops
         if(!checkCollision(player, stage, {x: dir, y: 0})) {
-        updatePlayerPos({ x: dir, y: 0 });
+            updatePlayerPos({ x: dir, y: 0 });
         }
     }
 
@@ -39,16 +39,25 @@ const Tetris = () => {
         // reset everything
         setStage(createStage());
         resetPlayer();
+        setGameOver(false);
     }
 
     const drop = () => {
+        if (!checkCollision(player, stage, { x: 0, y: 1})) {
         updatePlayerPos({ x: 0, y: 1, collided: false }) // increase y value by 1 making player tetromino go down
-
+        } else {
+          // Game Over
+          if (player.pos.y < 1) {
+              console.log("Game Over!");
+              setGameOver(true);
+              setDropTime(null); // can't drop anymore
+          }
+          updatePlayerPos({ x: 0, y: 0, collided: true });
+        }
     }
     
     const dropPlayer = () => {
         drop();
-
     }
 
     const move = ({ keyCode }) => {
@@ -66,7 +75,7 @@ const Tetris = () => {
     return (
         <StyledTetrisWrapper role = "button" tabIndex = "0" onKeyDown = {e => move(e)} >
             <StyledTetris>
-            <Stage stage = {stage} />
+            <Stage stage={stage} />
             <aside>
                 {gameOver ? (
                     // ternary operator determining if game is over
