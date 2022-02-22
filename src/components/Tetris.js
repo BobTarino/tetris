@@ -22,7 +22,7 @@ const Tetris = () => {
     // boolean whether game is over - starts false because game is starting
     const [gameOver, setGameOver] = useState(false);
     // grab new player from usePlayer hook
-    const [player, updatePlayerPos, resetPlayer] = usePlayer();
+    const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
     // grab and destructure stage
     const [stage, setStage] = useStage(player, resetPlayer);
 
@@ -68,6 +68,10 @@ const Tetris = () => {
                 movePlayer(1); // move player to right
             } else if (keyCode === 40) {
                 dropPlayer();
+            } else if (keyCode === 38) { 
+                playerRotate(stage, 1);  // rotates tetromino
+            } else if (keyCode === 16) {
+                playerRotate(stage, -1); // rotates tetromino in reverse
             }
         }
     }
