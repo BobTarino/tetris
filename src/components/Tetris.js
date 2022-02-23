@@ -48,7 +48,7 @@ const Tetris = () => {
         setGameOver(false);
         setScore(0);
         setRows(0);
-        setLevel(0);
+        setLevel(1);
 
     }
 
